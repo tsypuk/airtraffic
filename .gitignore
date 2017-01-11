@@ -31,3 +31,6 @@ gradlew
 gradlew.bat
 .gradle
 classes
+
+# Ansible
+*.retry
