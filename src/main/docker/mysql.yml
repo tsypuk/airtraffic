@@ -1,0 +1,13 @@
+version: '2'
+services:
+    air-mysql:
+        container_name: air-mysql
+        image: mysql:5.7.13
+        # volumes:
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=air
+        ports:
+            - 3306:3306
+        command: mysqld --lower_case_table_names=1 --skip-ssl

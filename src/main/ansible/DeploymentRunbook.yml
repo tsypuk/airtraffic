@@ -1,0 +1,24 @@
+- hosts: localhost
+  tasks:
+  - name: 'Build locally AirTraffic project.'
+    command: bash -lc  "cd /Users/rtsypuk/projects/personal/airtraffic/ && gradle clean build"
+
+- hosts: orangepi
+  # become: true
+  tasks:
+    - name: OrangePI commands
+      debug: msg="Start processing of orangePI"
+
+# Kill java process on orangePI
+# Create backup of old jar file
+
+    - name: Copy new build jar file to orangePI.
+      copy:
+        src: /Users/rtsypuk/projects/personal/airtraffic/build/libs/airtraffic-0.0.1-SNAPSHOT.jar
+        dest: /tmp/air.jar
+        owner: eeeee
+        group: eeeee
+        mode: 0644
+
+    - name: Run new version of application.
+      command: java -jar /tmp/air.jar

@@ -1,0 +1,2 @@
+ALTER TABLE `boards`
+ADD COLUMN `timestamp` DATETIME NOT NULL DEFAULT NOW() AFTER `flight`;

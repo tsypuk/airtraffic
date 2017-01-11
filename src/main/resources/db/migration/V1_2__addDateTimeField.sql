@@ -1,0 +1,2 @@
+ALTER TABLE `flights`
+ADD COLUMN `timestamp` DATETIME NOT NULL DEFAULT NOW() AFTER `speed`;

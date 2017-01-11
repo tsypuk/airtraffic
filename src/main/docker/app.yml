@@ -1,0 +1,19 @@
+version: '2'
+services:
+    air-app:
+        image: airtraffic
+        external_links:
+            - air-mysql:mysql
+        environment:
+            - "SPRING_PROFILES_ACTIVE=docker"
+            - "SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/air?useUnicode=true&characterEncoding=utf8&useSSL=false"
+            - "AIR_SLEEP=2" # gives time for the database to boot before the application
+
+    air-mysql:
+        extends:
+            file: mysql.yml
+            service: air-mysql
+    air-elk:
+        extends:
+            file: elk.yml
+            service: air-elk
