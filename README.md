@@ -38,7 +38,11 @@ apk del tzdata
 
 // TODO possibly this need to be automated with ansible for local build:
 Build app image
-docker build --rm --label airtraffic_with_FileBeat_TimeZone -t 'airtraffic:latest' .
+
+//TODO Add variables to ansible build docker script
+//TODO add jenkins image and configure to this repository.
+
+docker build --rm --label airtraffic_with_FileBeat_TimeZone -t 'airtraffic_app:latest' .
 
 Build mysql image
 docker build --rm --label airtraffic_mysql -t 'airtraffic_mysql:latest' .

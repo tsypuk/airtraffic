@@ -1,0 +1,29 @@
+- hosts: localhost
+  tasks:
+  - name: 'Removing old APP images.'
+    command: bash -lc  "docker rmi airtraffic_app"
+    ignore_errors: yes
+
+  - name: 'Removing old mysql images.'
+    command: bash -lc  "docker rmi airtraffic_mysql"
+    ignore_errors: yes
+
+  - name: 'Removing old ELK images.'
+    command: bash -lc  "docker rmi airtraffic_elk"
+    ignore_errors: yes
+
+  - name: 'Clean up dangling images.'
+    command: bash -lc "docker rmi $(docker images --filter \""dangling=true\"" -q --no-trunc)"
+    ignore_errors: yes
+
+  - name: 'Building Docker Image for airtraffic_app.'
+    command: bash -lc  "cd /Users/rtsypuk/projects/personal/airtraffic/ && docker build --rm --label airtraffic_with_FileBeat_TimeZone -t 'airtraffic_app:latest' ."
+
+  - name: 'Building Docker Image for airtraffic_mysql.'
+    command: bash -lc  "cd /Users/rtsypuk/projects/personal/airtraffic/src/main/docker/images/mysql && docker build --rm --label airtraffic_mysql -t 'airtraffic_mysql:latest' ."
+
+  - name: 'Building Docker Image for airtraffic_elk.'
+    command: bash -lc  "cd /Users/rtsypuk/projects/personal/airtraffic/src/main/docker/images/elk && docker build --rm --label airtraffic_elk -t 'airtraffic_elk:latest' ."
+
+  - name: 'Running Docker compose.'
+    command: bash -lc  "docker-compose -f /Users/rtsypuk/projects/personal/airtraffic/src/main/docker/app.yml up -d"

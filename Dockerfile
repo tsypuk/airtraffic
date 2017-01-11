@@ -9,7 +9,7 @@ ENV FILEBEAT_VERSION 1.1.1
 ENV FILEBEAT_URL https://download.elastic.co/beats/filebeat/filebeat-${FILEBEAT_VERSION}-x86_64.tar.gz
 ENV FILEBEAT_HOME /opt/filebeat-${FILEBEAT_VERSION}-x86_64
 ENV PATH $PATH:${FILEBEAT_HOME}
-ENV AIR_SLEEP 10
+ENV AIR_SLEEP 60
 ENV TERM xterm
 ENV TZ=Europe/Kiev
 #ENV SPRING_PROFILES_ACTIVE docker
@@ -45,8 +45,9 @@ VOLUME /tmp
 ######################################
 # Starting FileBeat and airtraffic.jar
 ######################################
-CMD echo "Starting FileBeat..." \
+CMD echo "Starting FileBeat in ${AIR_SLEEP}s..." \
+    && sleep ${AIR_SLEEP} \
     && /opt/filebeat-${FILEBEAT_VERSION}-x86_64/filebeat -c /opt/filebeat-${FILEBEAT_VERSION}-x86_64/filebeat.yml > /dev/null \
-    & echo "AirTraffic application will start in ${AIR_SLEEP}s..." \
+    & echo "Starting AirTraffic application ${AIR_SLEEP}s..." \
     && sleep ${AIR_SLEEP} \
     && java -Djava.security.egd=file:/dev/./urandom -jar /airtraffic.jar
