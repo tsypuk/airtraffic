@@ -5,9 +5,9 @@ TODO items:
 <li>Add MockMvc tests <BR></li>done
 <li>Optimize calls to DB</li>
 <li>Docker Timing problem</li>
-<li>logstash multifilters</li>
-<li>Create MD documentation</li>
-<li>Push to GIT</li>
+<li>logstash multifilters add tags</li>
+<li>Create MD documentation with buttons</li>
+<li>Push to GIT</li>done
 <li>Add spring sleuth and zipkin</li>
 <li>Create ansible for deployment</li>
 </ul>
@@ -36,9 +36,20 @@ apk del tzdata
 
 ##########
 
+// TODO possibly this need to be automated with ansible for local build:
 Build app image
 docker build --rm --label airtraffic_with_FileBeat_TimeZone -t 'airtraffic:latest' .
 
 Build mysql image
 docker build --rm --label airtraffic_mysql -t 'airtraffic_mysql:latest' .
+TODO Add creating the schema in MYSQL
+
+Build ELK image
+docker build --rm --label airtraffic_elk -t 'airtraffic_elk:latest' .
+TODO Add copying the configuration file of logstash to ELK
+
+Build sonarQube image
+docker build --rm --label airtraffic_sonar -t 'airtraffic_sonar:latest' .
+
+
 

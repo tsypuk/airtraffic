@@ -1,7 +1,6 @@
-FROM mysql:5.7.13
+FROM sonarqube:6.0-alpine
 ENV TZ=Europe/Kiev
 RUN echo $TZ | tee /etc/timezone
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
-# ADD script for creating schema
-ADD schema.sql /docker-entrypoint-initdb.d
+#/bin/sh: dpkg-reconfigure: not found

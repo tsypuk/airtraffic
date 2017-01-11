@@ -1,7 +1,7 @@
 version: '2'
 services:
     air-app:
-        image: airtraffic
+        image: airtraffic_app
         external_links:
             - air-mysql:mysql
         environment:

@@ -2,7 +2,7 @@ version: '2'
 services:
     air-sonar:
         container_name: air-sonar
-        image: sonarqube:6.0-alpine
+        image: airtraffic_sonar
         ports:
             - 9000:9000
             - 9092:9092
