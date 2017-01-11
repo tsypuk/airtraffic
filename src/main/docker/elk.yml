@@ -2,7 +2,7 @@ version: '2'
 services:
     air-elk:
         container_name: air-elk
-        image: sebp/elk
+        image: airtraffic_elk
         # volumes:
         ports:
             - 5044:5044
