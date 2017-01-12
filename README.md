@@ -1,15 +1,28 @@
+Repository contains:
+
+1. Custom docker images for:
+
+<ul>
+<li>Mysql</li>
+<li>ELK</li>
+<li>Spring boot app with installed filebeat</li>
+<li>SonarQube</li>
+</ul>
+
+2. Ansible runbook to build all docker images and start containers.
+
+3. Spring boot application to query Dump1090 REST service and dump flights info to DB.
+
 TODO items:
 <ul>
-<li>Add logstash and fileBeat</li>done
-<li>Add integration with ELK</li>done
-<li>Add MockMvc tests <BR></li>done
+<li>Add MockMvc tests <BR></li>
 <li>Optimize calls to DB</li>
 <li>Docker Timing problem</li>
 <li>logstash multifilters add tags</li>
 <li>Create MD documentation with buttons</li>
-<li>Push to GIT</li>done
-<li>Add spring sleuth and zipkin</li>
-<li>Create ansible for deployment</li>
+<li>Add spring sleuth and zipkin correlation ID</li>
+<li>Add Angular UI to display flights, calculate the radius of antenna</li>
+<li>Integrate with google, yandex maps</li>
 </ul>
 
 
@@ -35,7 +48,7 @@ You can now remove the other timezones
 apk del tzdata
 
 ##########
-
+How to manually build images, add containers and run app.
 // TODO possibly this need to be automated with ansible for local build:
 Build app image
 
@@ -56,8 +69,7 @@ Build sonarQube image
 docker build --rm --label airtraffic_sonar -t 'airtraffic_sonar:latest' .
 
 
-To configure ELK logstash pattern use:
-http://grokdebug.herokuapp.com
+To configure ELK logstash pattern use http://grokdebug.herokuapp.com
 For example:
 2017-01-07 13:15:07.732  INFO 29830 --- [pool-2-thread-1] u.i.s.Dump1090SheduledPollingService     : QueryDump1090 200 2
 %{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:loglevel} %{SPACE}%{DATA:pid}---\s+\[%{DATA:thread}\]\s+%{DATA:class}\s+:\s+%{WORD:rest} %{SPACE}%{NUMBER:response} %{SPACE}%{NUMBER:flightsCount}
