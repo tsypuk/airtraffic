@@ -56,4 +56,11 @@ Build sonarQube image
 docker build --rm --label airtraffic_sonar -t 'airtraffic_sonar:latest' .
 
 
+To configure ELK logstash pattern use:
+http://grokdebug.herokuapp.com
+For example:
+2017-01-07 13:15:07.732  INFO 29830 --- [pool-2-thread-1] u.i.s.Dump1090SheduledPollingService     : QueryDump1090 200 2
+%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:loglevel} %{SPACE}%{DATA:pid}---\s+\[%{DATA:thread}\]\s+%{DATA:class}\s+:\s+%{WORD:rest} %{SPACE}%{NUMBER:response} %{SPACE}%{NUMBER:flightsCount}
+
+
 
