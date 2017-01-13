@@ -1,3 +1,5 @@
+Build details
+[![Build Status](https://travis-ci.org/tsypuk/airtraffic.svg?branch=master)](https://travis-ci.org/tsypuk/airtraffic)
 Repository contains:
 
 1. Custom docker images for:
@@ -15,7 +17,7 @@ Repository contains:
 
 TODO items:
 <ul>
-<li>Add MockMvc tests <BR></li>
+<li>Add MockMvc tests</li>
 <li>Optimize calls to DB</li>
 <li>Docker Timing problem</li>
 <li>logstash multifilters add tags</li>
@@ -67,7 +69,6 @@ TODO Add copying the configuration file of logstash to ELK
 
 Build sonarQube image
 docker build --rm --label airtraffic_sonar -t 'airtraffic_sonar:latest' .
-
 
 To configure ELK logstash pattern use http://grokdebug.herokuapp.com
 For example:
