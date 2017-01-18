@@ -1,0 +1,9 @@
+<div class="section">
+    <h3>{{headingTitle}}</h3>
+    <h4>{{currentBoard}}</h4>
+    <ul class="list" ng-repeat="board in boards">
+        <div>{{board.hex}}
+            <button type="button" ng-click="getBoard(board)">View details</button>
+        </div>
+    </ul>
+</div>

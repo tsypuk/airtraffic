@@ -34,3 +34,6 @@ classes
 
 # Ansible
 *.retry
+
+# Bower
+bower_components

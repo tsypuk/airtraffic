@@ -1,0 +1,17 @@
+{
+  "name": "airtraffic",
+  "homepage": "https://github.com/tsypuk/airtraffic",
+  "authors": [
+    "Roman Tsypuk tsypuk.rb@gmail.com"
+  ],
+  "description": "AirDump see the flights details",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "ngstorage": "^0.3.11",
+    "angular": "1.4.9",
+    "angular-route": "latest",
+    "angular-resource": "latest",
+    "ngmap": "latest"
+  }
+}

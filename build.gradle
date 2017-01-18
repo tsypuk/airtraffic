@@ -142,13 +142,19 @@ configurations {
 }
 
 dependencies {
-	compile("org.projectlombok:lombok:${lombokVersion}")
-	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile "org.projectlombok:lombok:${lombokVersion}"
+	compile 'org.springframework.boot:spring-boot-starter'
+	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-jdbc'
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile "org.flywaydb:flyway-core:${flyWayVersion}"
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile 'org.springframework.boot:spring-boot-devtools'
+//	compile 'org.webjars:angularjs:1.4.9'
+//	compile 'org.webjars:bootstrap:4.0.0-alpha.5'
+//	compile 'org.webjars:angular-google-maps:2.3.2'
+
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	runtime 'mysql:mysql-connector-java'
 }
 
