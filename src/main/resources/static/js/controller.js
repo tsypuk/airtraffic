@@ -32,18 +32,9 @@ app.controller('flightsController', function ($localStorage, $scope, $http) {
 app.controller('mapsController', function ($localStorage, $scope, $http) {
     $scope.headingTitle = "Maps";
     if ($localStorage.points == null) {
-        var bulk = [];
         $http.get('/flights').success(function (data) {
             console.log('HTTP call for points.');
-            for (var current in data) {
-                bulk.push(
-                    {
-                        'name': 'NAME',
-                        'latitude': data[current].lat,
-                        'longitude': data[current].lon
-                    }
-                );
-            }
+            var bulk = transformCoordinates(data);
             $localStorage.points = bulk;
             $scope.points = bulk;
         });
@@ -52,6 +43,69 @@ app.controller('mapsController', function ($localStorage, $scope, $http) {
         $scope.points = $localStorage.points;
     }
 });
+
+app.controller('tracksController', function($localStorage, $scope, $http) {
+    $scope.headingTitle = "Tracks";
+    // Load all boards
+    $http.get('/boards')
+        .success(function (data) {
+            $scope.boards = data;
+            console.log(data);
+        });
+
+    $scope.drawBoardTrack = function (board) {
+        console.log("Hello " + board.hex);
+        $scope.currentBoard = board;
+        // Clear the map
+        //Load tracks for this board
+
+        $http.get('/flights_hex?flightId=' + board.flight + '&hexId=' + board.hex).success(function (data) {
+           console.log('HTTP call /flights/' + board.flight);
+           console.log(data);
+           if (data.length > 0) {
+               var bulk = transformCoordinatesToArray(data);
+               $scope.pointsArray = bulk;
+               if (bulk.length > 0) {
+                   $scope.last =
+                       {
+                           latlon: [bulk[0][0], bulk[0][1]],
+                           title: "title"
+
+                       };
+               }
+           } else {
+               $scope.pointsArray = [];
+               $scope.last = null;
+               console.log('Nothing to display.');
+           }
+        });
+    }
+
+});
+
+function transformCoordinates(data) {
+    var bulk = [];
+    for (var current in data) {
+        bulk.push(
+            {
+                'name': 'NAME',
+                'latitude': data[current].lat,
+                'longitude': data[current].lon
+            }
+        );
+    }
+    return bulk;
+}
+
+function transformCoordinatesToArray(data) {
+    var bulk = [];
+    for (var current in data) {
+        bulk.push(
+            [data[current].lat, data[current].lon]
+        );
+    }
+    return bulk;
+}
 
 // $scope.points = [
 //     { "name": "Canberra", "latitude": -35.282614, "longitude": 149.127775 },

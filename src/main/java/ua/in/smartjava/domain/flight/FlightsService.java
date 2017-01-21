@@ -16,8 +16,8 @@ public class FlightsService {
         return flightRepository.findFirst100ByOrderByIdDesc();
     }
 
-    public void saveFlight(Flight flight) {
-        flightRepository.save(flight);
+    public Flight saveFlight(Flight flight) {
+        return flightRepository.save(flight);
     }
 
     public void saveFlights(List<Flight> flights) {

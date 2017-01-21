@@ -15,6 +15,10 @@ app.config(function ($routeProvider) {
             controller: 'mapsController'
 
         })
+        .when('/tracks', {
+            templateUrl: 'views/tracks.html',
+            controller: 'tracksController'
+        })
         .otherwise(
             {redirectTo: '/'}
         );

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ua.in.smartjava.domain.flight.FlightDTO;
@@ -20,7 +20,6 @@ import ua.in.smartjava.domain.flight.FlightRepository;
 public class FlightsController {
 
     private FlightRepository flightRepository;
-
 
     @Autowired
     public FlightsController(FlightRepository flightRepository) {
@@ -38,10 +37,20 @@ public class FlightsController {
     }
 
     @RequestMapping(value = "/flights/{id}", method = RequestMethod.GET)
-    public FlightDTO getFlightById(@PathVariable("id") long flightId) throws Exception {
-        return Optional.ofNullable(flightRepository.getOne(flightId))
+    public List<FlightDTO> getFlightById(@PathVariable("id") String flightId) throws Exception {
+        return flightRepository.findByFlight(flightId).stream()
                 .map(FlightDTO::new)
-                .orElseThrow(() -> new Exception("Flight not found in DB"));
+                .collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/flights_hex", method = RequestMethod.GET)
+    public List<FlightDTO> getFlightByFlightIdAndHex(@RequestParam(value = "flightId") String flightId,
+                                                     @RequestParam(value = "hexId") String hexId) throws Exception {
+        return flightRepository.findByFlightAndHex(flightId, hexId).stream()
+                .filter(flight -> !flight.getLat().isEmpty())
+                .filter(flight -> new Double(flight.getLat()).intValue() > 0)
+                .map(FlightDTO::new)
+                .collect(Collectors.toList());
     }
 
 }
