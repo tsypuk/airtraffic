@@ -36,7 +36,7 @@ public class Dump1090SheduledPollingService {
 
     Set<FlightDTO> previousPollingResults = new HashSet<>();
 
-    @Scheduled(fixedRateString = "${dump1090.rate}")
+    @Scheduled(fixedRateString = "${dump1090.rate}", initialDelayString = "${dump1090.initialDelay}")
     public void pollDump1090ServerWithRate() {
 
         ResponseEntity<Flight[]> dump1090Boards = restTemplate.getForEntity(dumpl1090Url, Flight[].class);

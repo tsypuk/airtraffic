@@ -40,10 +40,12 @@ DeploymentRunbook.yml
 - [x] Update MD documentation with buttons and images
 - [ ] Add spring sleuth and zipkin correlation ID
 - [ ] Add swager documentation
+- [X] Add integration mockMvc tests
+- [ ] Add jsonpath
 - [ ] Add restdoc generation on tests running
 - [ ] Add springboot endpoint for future UI integration
-- [ ] Add Angular UI to display flights, calculate the radius of antenna
-- [ ] Integrate with google, yandex maps
+- [X] Add Angular UI to display flights, calculate the radius of antenna
+- [X] Integrate with google
 - [ ] Use modules of ansible for docker
 - [ ] Add monitoring system for containers
 - [ ] Use roles in ansible

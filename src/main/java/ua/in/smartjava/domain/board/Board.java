@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,5 +39,10 @@ public class Board {
     }
 
     public Board() {
+    }
+
+    public Board(String hex, String flight) {
+        this.hex = hex;
+        this.flight = flight;
     }
 }
