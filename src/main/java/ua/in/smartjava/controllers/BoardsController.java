@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ua.in.smartjava.domain.board.BoardDTO;
@@ -24,9 +24,11 @@ public class BoardsController {
 
     @GetMapping("/boards")
     public ResponseEntity<List<BoardDTO>> getBoards() {
-        List<BoardDTO> flightDtos = boardRepository.findAll().stream()
-                .map(BoardDTO::new)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(flightDtos, HttpStatus.OK);
+        return Optional.ofNullable(boardRepository.findAll())
+                .map(list -> new ResponseEntity(list.stream()
+                        .map(BoardDTO::new)
+                        .collect(Collectors.toList()),
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }

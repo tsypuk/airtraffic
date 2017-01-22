@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import ua.in.smartjava.domain.flight.Flight;
 import ua.in.smartjava.domain.flight.FlightsService;
 

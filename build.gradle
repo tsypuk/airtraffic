@@ -155,6 +155,8 @@ dependencies {
 //	compile 'org.webjars:angular-google-maps:2.3.2'
 
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	compile 'com.h2database:h2:1.4.193'
+
 	runtime 'mysql:mysql-connector-java'
 }
 

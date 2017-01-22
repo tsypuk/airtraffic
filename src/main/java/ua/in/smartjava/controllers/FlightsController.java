@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import ua.in.smartjava.domain.flight.FlightDTO;
@@ -28,29 +29,39 @@ public class FlightsController {
 
     @GetMapping("/flights")
     public ResponseEntity<List<FlightDTO>> getFlights() {
-        List<FlightDTO> flightDtos = flightRepository.findAll()
-//                .findFirst100ByOrderByIdDesc()
-                .stream()
-                .map(FlightDTO::new)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(flightDtos, HttpStatus.OK);
+        return Optional.ofNullable(flightRepository.findAll())
+                .map(list -> new ResponseEntity(
+                        list.stream()
+                                .map(FlightDTO::new)
+                                .collect(Collectors.toList()),
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/flights/{id}", method = RequestMethod.GET)
-    public List<FlightDTO> getFlightById(@PathVariable("id") String flightId) throws Exception {
-        return flightRepository.findByFlight(flightId).stream()
-                .map(FlightDTO::new)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<FlightDTO>> getFlightById(@PathVariable("id") String flightId) throws Exception {
+        return Optional.ofNullable(flightRepository.findByFlight(flightId))
+                .map(list -> new ResponseEntity(
+                        list.stream()
+                                .map(FlightDTO::new)
+                                .collect(Collectors.toList()),
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/flights_hex", method = RequestMethod.GET)
-    public List<FlightDTO> getFlightByFlightIdAndHex(@RequestParam(value = "flightId") String flightId,
-                                                     @RequestParam(value = "hexId") String hexId) throws Exception {
-        return flightRepository.findByFlightAndHex(flightId, hexId).stream()
-                .filter(flight -> !flight.getLat().isEmpty())
-                .filter(flight -> new Double(flight.getLat()).intValue() > 0)
-                .map(FlightDTO::new)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<FlightDTO>> getFlightByFlightIdAndHex(@RequestParam(value = "flightId") String flightId,
+                                                                     @RequestParam(value = "hexId") String hexId)
+            throws Exception {
+        return Optional.ofNullable(flightRepository.findByFlightAndHex(flightId, hexId))
+                .map(list -> new ResponseEntity(
+                        list.stream()
+                                .filter(flight -> !flight.getLat().isEmpty())
+                                .filter(flight -> new Double(flight.getLat()).intValue() > 0)
+                                .map(FlightDTO::new)
+                                .collect(Collectors.toList()),
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
 }
