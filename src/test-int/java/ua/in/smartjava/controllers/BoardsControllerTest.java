@@ -1,5 +1,6 @@
 package ua.in.smartjava.controllers;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,10 +35,15 @@ public class BoardsControllerTest {
         mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
+    @After
+    public void cleanup() {
+        boardRepository.deleteAll();
+    }
+
     @Test
     public void getAllBoards() throws Exception {
         mockMvc.perform(get("/boards"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 
     @Test

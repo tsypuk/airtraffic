@@ -55,6 +55,16 @@ public class Flight {
     public Flight() {
     }
 
+    public Flight(String hex, String flight, String lat, String lon, String altitude, String track, String speed) {
+        this.hex = hex;
+        this.flight = flight;
+        this.lat = lat;
+        this.lon = lon;
+        this.altitude = altitude;
+        this.track = track;
+        this.speed = speed;
+    }
+
     public Flight(FlightDTO flightDTO) {
         this.hex = flightDTO.getHex();
         this.flight = StringUtils.trimAllWhitespace(flightDTO.getFlight());

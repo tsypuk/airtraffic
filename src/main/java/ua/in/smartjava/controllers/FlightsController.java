@@ -29,6 +29,7 @@ public class FlightsController {
 
     @GetMapping("/flights")
     public ResponseEntity<List<FlightDTO>> getFlights() {
+//        TODO Optional is not working here.
         return Optional.ofNullable(flightRepository.findAll())
                 .map(list -> new ResponseEntity(
                         list.stream()
