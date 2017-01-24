@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
@@ -53,7 +54,10 @@ public class BoardsControllerTest {
 
         mockMvc.perform(get("/boards"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", iterableWithSize(1)));
+                .andExpect(jsonPath("$", iterableWithSize(1)))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].flight").value("FLIGHT"))
+                .andExpect(jsonPath("$[0].hex").value("HEX"));
     }
 
 }

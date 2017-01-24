@@ -8,5 +8,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     List<Flight> findFirst100ByOrderByIdDesc();
     List<Flight> findByFlight(String flight);
     List<Flight> findByFlightAndHex(String flight, String hex);
+    Flight findFlightById(String id);
 
 }
